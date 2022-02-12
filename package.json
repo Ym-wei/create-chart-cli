@@ -1,0 +1,16 @@
+{
+  "name": "root",
+  "private": true,
+  "scripts": {
+    "bootstrap": "yarn && lerna bootstrap",
+    "clean:package": "lerna clean -y",
+    "rebuild": "lerna clean -y && lerna bootstrap",
+    "create": "node packages/chart-cli/bin/index.js create button-group"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "lerna": "^4.0.0"
+  }
+}

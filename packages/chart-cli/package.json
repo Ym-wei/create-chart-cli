@@ -1,0 +1,25 @@
+{
+  "name": "chart-cli",
+  "version": "1.0.0",
+  "description": "> TODO: description",
+  "author": "285133472@qq.com <xiaoming>",
+  "homepage": "",
+  "license": "ISC",
+  "main": "bin/index.js",
+  "bin": {
+    "chart-cli": "bin/index.js"
+  },
+  "dependencies": {
+    "chalk": "^4.1.1",
+    "chart-cli-shared-utils": "^1.0.0",
+    "commander": "^7.2.0",
+    "ejs": "^3.1.6",
+    "execa": "^5.1.1",
+    "fs-extra": "^10.0.0",
+    "globby": "^11.0.3",
+    "inquirer": "^8.1.0",
+    "isbinaryfile": "^4.0.8",
+    "lodash.clonedeep": "^4.5.0",
+    "ora": "^5.4.0"
+  }
+}

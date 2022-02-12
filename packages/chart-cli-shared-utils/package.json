@@ -1,0 +1,26 @@
+{
+  "name": "chart-cli-shared-utils",
+  "version": "1.0.0",
+  "description": "> TODO: description",
+  "author": "285133472@qq.com <xiaoming>",
+  "homepage": "",
+  "license": "ISC",
+  "main": "lib/chart-cli-shared-utils.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "dependencies": {
+    "chalk": "^4.1.1",
+    "execa": "^5.1.1"
+  },
+  "publishConfig": {
+    "registry": "http://registry.npm.taobao.org/"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  }
+}
