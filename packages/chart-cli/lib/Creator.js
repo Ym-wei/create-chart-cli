@@ -56,14 +56,13 @@ class Creator {
     preset = cloneDeep(preset)
     this.preset = preset
     const pkg = this.getPkg(name)
-    await writeFileTree(context, {
+    await writeFileTree(name, {
       'package.json': JSON.stringify(pkg, null, 2)
     })
     const globby = require('globby')
     const codeTemplateSource = path.join(__dirname, '../template')
     const _files = await globby(['**/*'], { cwd: codeTemplateSource })
 
-    console.log(_files, '_files ')
     for (const rawPath of _files) {
       const targetPath = rawPath.split('/').map(field => {
         // // 文件名处理_gitignore => .gitignore
@@ -75,14 +74,14 @@ class Creator {
 
       // 模板文件夹里面原文件绝对路径
       const sourcePath = path.resolve(codeTemplateSource, rawPath)
-      console.log(this.getParams(), '参数')
       const content = this.renderFile(sourcePath, this.getParams())
       // 不管是二进制还是文本 先缓存files中
       files[targetPath] = content
     }
     this.changeFilesName(files)
 
-    await writeFileTree(context, files)
+    await writeFileTree(name, files)
+    console.log('创建完成success.....')
   }
 
   changeFilesName(files) {
@@ -164,11 +163,11 @@ class Creator {
       type: 'list',//如何选择 列表
       message: `请选择类型:`,//请选择一个预设
       choices: [
-        ...presetChoices,
-        {
-          name: 'Manually select features',//手工选择特性
-          value: '__manual__'
-        }
+        ...presetChoices
+        // {
+        //   name: 'Manually select features',//手工选择特性
+        //   value: '__manual__'
+        // }
       ]
     }
     const featurePrompt = {
