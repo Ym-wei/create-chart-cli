@@ -1,10 +1,10 @@
 <template>
-  <div class="chart-<%=defaultName %>">
+  <div class="ms-chart-<%=defaultName %>">
     <% if (hasChart) { %><EChart
-        :ref="`chart_${echartRef}`"
-        :options="chartsOption"
-        :theme="themeConfig"
-        class="echart"
+      :ref="`chart_${echartRef}`"
+      :options="chartsOption"
+      :theme="themeConfig"
+      class="echart"
     ></EChart> <% } %>
   </div>
 </template>
@@ -16,14 +16,10 @@
   export default {
     name: 'chart-<%=defaultName %>',
     mixins: [mixins<% if (hasChart) { %>, echartMixins<% } %>],
-    props: {
-      type: {
-        type: String,
-        default: 'line'
-      }
-    },
     data() {
-      return {}
+      return {
+        type: '<%=humpSplitName%>'
+      }
     },
     computed: {
       <% if (hasChart) { %>chartsOption() {

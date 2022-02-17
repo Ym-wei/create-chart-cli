@@ -11,4 +11,11 @@ program
     require('../lib/create')(appName);
   })
 
+program
+  .command('add <file-name>') //添加一个命令 create <表示必选参数>
+  .description('创建文件')
+  .action((appName) => {
+    require('../lib/add')(appName);
+  })
+
 program.parse(process.argv)

@@ -78,9 +78,15 @@ class Creator {
       // 不管是二进制还是文本 先缓存files中
       files[targetPath] = content
     }
+    const scssFile = cloneDeep(files['defaultName.scss'])
+    delete files['defaultName.scss']
     this.changeFilesName(files)
-
     await writeFileTree(name, files)
+    if (preset.hasScss) {
+      const sassFileObj = {}
+      sassFileObj[`${name}.scss`] = scssFile
+      await writeFileTree(name, sassFileObj, true)
+    }
     console.log('创建完成success.....')
   }
 
@@ -139,7 +145,7 @@ class Creator {
     let prompts = [
       this.presetPrompt,//先让你选预设 default default vue3 manual
       this.featurePrompt,//再让你选特性  feature
-      ...this.injectedPrompts//不同的promptModule插入的选项
+      ...this.injectedPrompts,//不同的promptModule插入的选项,
     ]
     return prompts
   }
@@ -182,6 +188,21 @@ class Creator {
 
   async promptAndResolvePreset() {
     let answers = await inquirer.prompt(this.resolveFinalPrompts())
+    let { hasScss } = await inquirer.prompt([{
+      name: 'hasScss',
+      message: '是否使用scss',
+      type: 'list',
+      choices: [
+        {
+          name: '是',
+          value: true
+        },
+        {
+          name: '否',
+          value: false
+        }
+      ]
+    }])
     let preset
     if (answers.preset && answers.preset !== '__manual__') {
       preset = await this.resolvePreset(answers.preset)
@@ -192,6 +213,7 @@ class Creator {
       answers.features = answers.features || []
       this.promptCompleteCbs.forEach(cb => cb(answers, preset))
     }
+    preset.hasScss = hasScss
     return preset
   }
 }
